@@ -1,0 +1,35 @@
+name: Daily SGX Analysis
+
+on:
+  schedule:
+    - cron: '30 17 * * 1-5'  # 4 PM SGT = 8 AM UTC
+  workflow_dispatch:
+
+jobs:
+  sgx-screener:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      
+      - name: Run screener
+        run: python sgx_screener.py
+      
+      - name: Save results
+        run: |
+          mkdir -p reports
+          mv SGX_Stock_Screen*.xlsx reports/ || true
+      
+      - name: Commit & push
+        run: |
+          git config user.email "action@github.com"
+          git config user.name "SGX Bot"
+          git add reports/
+          git commit -m "SGX Daily Analysis - $(date +%Y-%m-%d)" || true
+          git push
