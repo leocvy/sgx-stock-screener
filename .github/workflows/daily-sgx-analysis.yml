@@ -4,7 +4,10 @@ on:
   schedule:
     - cron: '30 17 * * 1-5'  # 4 PM SGT = 8 AM UTC
   workflow_dispatch:
-
+  
+permissions:
+  contents: write  # ✅ Add this
+  
 jobs:
   sgx-screener:
     runs-on: ubuntu-latest
