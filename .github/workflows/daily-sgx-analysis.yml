@@ -10,9 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}  # ✅ Add this
+      
       - uses: actions/setup-python@v6
         with:
           python-version: '3.10'
@@ -30,8 +30,8 @@ jobs:
       
       - name: Commit & push
         run: |
-          git config user.email "action@github.com"
-          git config user.name "SGX Bot"
+          git config --local user.email "action@github.com"
+          git config --local user.name "SGX Bot"
           git add reports/
-          git commit -m "SGX Daily Analysis - $(date +%Y-%m-%d)" || true
-          git push
+          git commit -m "SGX Daily Analysis - $(date +%Y-%m-%d)" || echo "No changes to commit"
+          git push  # ✅ This should now work
