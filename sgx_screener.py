@@ -17,24 +17,24 @@ class SGXStockScreener:
         self.sgx_stocks = {
             'DBS Group Holdings': 'D05.SI',
             'OCBC Bank': 'O39.SI',
-            'United Overseas Bank': 'U11.SI',
-            'Singapore Airlines': 'C6L.SI',
-            'Singtel': 'Z74.SI',
+            'Frenken': 'E28.SI',
+            'CSE Global': '544.SI',
+            'DFIRG': 'D01.SI',
             'CapitaLand Investment': '9CI.SI',
             'Wilmar International': 'F34.SI',
-            'Genting Singapore': 'G13.SI',
-            'City Developments': 'C09.SI',
-            'Keppel Corp': 'BN4.SI',
-            'ComfortDelGro': 'C52.SI',
+            'Food Empire': 'F03.SI',
+            'AEM': 'AWX.SI',
+            'HongLeong Asia': 'H22.SI',
+            'First Resources': 'EB5.SI',
             'SembCorp Industries': 'U96.SI',
             'Thai Beverage': 'Y92.SI',
-            'Jardine Matheson': 'J36.SI',
-            'Hongkong Land': 'H78.SI',
+            'Bumitama Agri': 'P8Z.SI',
+            'UMS': '558.SI',
             'ST Engineering': 'S63.SI',
             'Ascendas REIT': 'A17U.SI',
-            'CapitaLand Mall Trust': 'C38U.SI',
-            'Mapletree Logistics Trust': 'M44U.SI',
-            'Venture Corp': 'V03.SI'
+            'SGX': 'S68.SI',
+            'AIMS APAC REIT': 'O5RU.SI',
+            'YZJ Shipbldg': 'BS6.SI'
         }
         
         self.results = []
@@ -262,7 +262,10 @@ class SGXStockScreener:
         report_df['Volume Ratio'] = report_df['Volume Ratio'].round(2)
         
         # Save to Excel
-        filename = f'SGX_Stock_Screen_{datetime.now().strftime("%Y%m%d")}.xlsx'
+        # Create reports directory if it doesn't exist
+        os.makedirs('reports', exist_ok=True)
+
+        filename = f'reports/SGX_Stock_Screen_{datetime.now().strftime("%Y%m%d")}.xlsx'
         report_df.to_excel(filename, index=False)
         
         print(f"\nReport saved as: {filename}")
